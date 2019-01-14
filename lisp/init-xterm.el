@@ -9,13 +9,13 @@
 
 (autoload 'mwheel-install "mwheel")
 
-(defun sanityinc/console-frame-setup ()
+(defun mxzl/console-frame-setup ()
   (xterm-mouse-mode 1) ; Mouse in a terminal (Use shift to paste with middle button)
   (mwheel-install))
 
 
 
-(add-hook 'after-make-console-frame-hooks 'sanityinc/console-frame-setup)
+(add-hook 'after-make-console-frame-hooks 'mxzl/console-frame-setup)
 
 (provide 'init-xterm)
 ;;; init-xterm.el ends here

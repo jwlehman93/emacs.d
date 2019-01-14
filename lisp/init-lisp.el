@@ -11,7 +11,7 @@
               (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
 
 
-(defun sanityinc/headerise-elisp ()
+(defun mxzl/headerise-elisp ()
   "Add minimal header and footer to an elisp buffer in order to placate flycheck."
   (interactive)
   (let ((fname (if (buffer-file-name)
@@ -28,7 +28,7 @@
 
 ;; Make C-x C-e run 'eval-region if the region is active
 
-(defun sanityinc/eval-last-sexp-or-region (prefix)
+(defun mxzl/eval-last-sexp-or-region (prefix)
   "Eval region from BEG to END if active, otherwise the last sexp."
   (interactive "P")
   (if (and (mark) (use-region-p))
@@ -38,58 +38,58 @@
 (global-set-key [remap eval-expression] 'pp-eval-expression)
 
 (after-load 'lisp-mode
-  (define-key emacs-lisp-mode-map (kbd "C-x C-e") 'sanityinc/eval-last-sexp-or-region))
+  (define-key emacs-lisp-mode-map (kbd "C-x C-e") 'mxzl/eval-last-sexp-or-region))
 
 (when (maybe-require-package 'ipretty)
   (add-hook 'after-init-hook 'ipretty-mode))
 
 
-(defun sanityinc/make-read-only (expression out-buffer-name)
+(defun mxzl/make-read-only (expression out-buffer-name)
   "Enable `view-mode' in the output buffer - if any - so it can be closed with `\"q\"."
   (when (get-buffer out-buffer-name)
     (with-current-buffer out-buffer-name
       (view-mode 1))))
-(advice-add 'pp-display-expression :after 'sanityinc/make-read-only)
+(advice-add 'pp-display-expression :after 'mxzl/make-read-only)
 
 
 
-(defun sanityinc/maybe-set-bundled-elisp-readonly ()
+(defun mxzl/maybe-set-bundled-elisp-readonly ()
   "If this elisp appears to be part of Emacs, then disallow editing."
   (when (and (buffer-file-name)
              (string-match-p "\\.el\\.gz\\'" (buffer-file-name)))
     (setq buffer-read-only t)
     (view-mode 1)))
 
-(add-hook 'emacs-lisp-mode-hook 'sanityinc/maybe-set-bundled-elisp-readonly)
+(add-hook 'emacs-lisp-mode-hook 'mxzl/maybe-set-bundled-elisp-readonly)
 
 
 ;; Use C-c C-z to toggle between elisp files and an ielm session
 ;; I might generalise this to ruby etc., or even just adopt the repl-toggle package.
 
-(defvar-local sanityinc/repl-original-buffer nil
+(defvar-local mxzl/repl-original-buffer nil
   "Buffer from which we jumped to this REPL.")
 
-(defvar sanityinc/repl-switch-function 'switch-to-buffer-other-window)
+(defvar mxzl/repl-switch-function 'switch-to-buffer-other-window)
 
-(defun sanityinc/switch-to-ielm ()
+(defun mxzl/switch-to-ielm ()
   (interactive)
   (let ((orig-buffer (current-buffer)))
     (if (get-buffer "*ielm*")
-        (funcall sanityinc/repl-switch-function "*ielm*")
+        (funcall mxzl/repl-switch-function "*ielm*")
       (ielm))
-    (setq sanityinc/repl-original-buffer orig-buffer)))
+    (setq mxzl/repl-original-buffer orig-buffer)))
 
-(defun sanityinc/repl-switch-back ()
+(defun mxzl/repl-switch-back ()
   "Switch back to the buffer from which we reached this REPL."
   (interactive)
-  (if sanityinc/repl-original-buffer
-      (funcall sanityinc/repl-switch-function sanityinc/repl-original-buffer)
+  (if mxzl/repl-original-buffer
+      (funcall mxzl/repl-switch-function mxzl/repl-original-buffer)
     (error "No original buffer")))
 
 (after-load 'elisp-mode
-  (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'sanityinc/switch-to-ielm))
+  (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'mxzl/switch-to-ielm))
 (after-load 'ielm
-  (define-key ielm-map (kbd "C-c C-z") 'sanityinc/repl-switch-back))
+  (define-key ielm-map (kbd "C-c C-z") 'mxzl/repl-switch-back))
 
 ;; ----------------------------------------------------------------------------
 ;; Hippie-expand
@@ -123,7 +123,7 @@
 ;;; Support byte-compilation in a sub-process, as
 ;;; required by highlight-cl
 
-(defun sanityinc/byte-compile-file-batch (filename)
+(defun mxzl/byte-compile-file-batch (filename)
   "Byte-compile FILENAME in batch mode, ie. a clean sub-process."
   (interactive "fFile to byte-compile in batch mode: ")
   (let ((emacs (car command-line-args)))
@@ -139,43 +139,43 @@
 ;; ----------------------------------------------------------------------------
 ;; Enable desired features for all lisp modes
 ;; ----------------------------------------------------------------------------
-(defun sanityinc/enable-check-parens-on-save ()
+(defun mxzl/enable-check-parens-on-save ()
   "Run `check-parens' when the current buffer is saved."
   (add-hook 'after-save-hook #'check-parens nil t))
 
-(defvar sanityinc/lispy-modes-hook
+(defvar mxzl/lispy-modes-hook
   '(enable-paredit-mode
-    sanityinc/enable-check-parens-on-save)
+    mxzl/enable-check-parens-on-save)
   "Hook run in all Lisp modes.")
 
 
 (when (maybe-require-package 'aggressive-indent)
-  (add-to-list 'sanityinc/lispy-modes-hook 'aggressive-indent-mode))
+  (add-to-list 'mxzl/lispy-modes-hook 'aggressive-indent-mode))
 
-(defun sanityinc/lisp-setup ()
+(defun mxzl/lisp-setup ()
   "Enable features useful in any Lisp mode."
-  (run-hooks 'sanityinc/lispy-modes-hook))
+  (run-hooks 'mxzl/lispy-modes-hook))
 
-(defun sanityinc/emacs-lisp-setup ()
+(defun mxzl/emacs-lisp-setup ()
   "Enable features useful when working with elisp."
   (set-up-hippie-expand-for-elisp))
 
-(defconst sanityinc/elispy-modes
+(defconst mxzl/elispy-modes
   '(emacs-lisp-mode ielm-mode)
   "Major modes relating to elisp.")
 
-(defconst sanityinc/lispy-modes
-  (append sanityinc/elispy-modes
+(defconst mxzl/lispy-modes
+  (append mxzl/elispy-modes
           '(lisp-mode inferior-lisp-mode lisp-interaction-mode))
   "All lispy major modes.")
 
 (require 'derived)
 
-(dolist (hook (mapcar #'derived-mode-hook-name sanityinc/lispy-modes))
-  (add-hook hook 'sanityinc/lisp-setup))
+(dolist (hook (mapcar #'derived-mode-hook-name mxzl/lispy-modes))
+  (add-hook hook 'mxzl/lisp-setup))
 
-(dolist (hook (mapcar #'derived-mode-hook-name sanityinc/elispy-modes))
-  (add-hook hook 'sanityinc/emacs-lisp-setup))
+(dolist (hook (mapcar #'derived-mode-hook-name mxzl/elispy-modes))
+  (add-hook hook 'mxzl/emacs-lisp-setup))
 
 (when (boundp 'eval-expression-minibuffer-setup-hook)
   (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode))
@@ -200,12 +200,12 @@
 ;; their .elc counterparts removed - VC hooks would be necessary for
 ;; that.
 
-(defvar sanityinc/vc-reverting nil
+(defvar mxzl/vc-reverting nil
   "Whether or not VC or Magit is currently reverting buffers.")
 
-(defun sanityinc/maybe-remove-elc (&rest _)
+(defun mxzl/maybe-remove-elc (&rest _)
   "If reverting from VC, delete any .elc file that will now be out of sync."
-  (when sanityinc/vc-reverting
+  (when mxzl/vc-reverting
     (when (and (eq 'emacs-lisp-mode major-mode)
                buffer-file-name
                (string= "el" (file-name-extension buffer-file-name)))
@@ -213,13 +213,13 @@
         (when (file-exists-p elc)
           (message "Removing out-of-sync elc file %s" (file-name-nondirectory elc))
           (delete-file elc))))))
-(advice-add 'revert-buffer :after 'sanityinc/maybe-remove-elc)
+(advice-add 'revert-buffer :after 'mxzl/maybe-remove-elc)
 
-(defun sanityinc/reverting (orig &rest args)
-  (let ((sanityinc/vc-reverting t))
+(defun mxzl/reverting (orig &rest args)
+  (let ((mxzl/vc-reverting t))
     (apply orig args)))
-(advice-add 'magit-revert-buffers :around 'sanityinc/reverting)
-(advice-add 'vc-revert-buffer-internal :around 'sanityinc/reverting)
+(advice-add 'magit-revert-buffers :around 'mxzl/reverting)
+(advice-add 'vc-revert-buffer-internal :around 'mxzl/reverting)
 
 
 
@@ -237,10 +237,10 @@
 
 ;; Extras for theme editing
 (when (maybe-require-package 'rainbow-mode)
-  (defun sanityinc/enable-rainbow-mode-if-theme ()
+  (defun mxzl/enable-rainbow-mode-if-theme ()
     (when (and (buffer-file-name) (string-match-p "\\(color-theme-\\|-theme\\.el\\)" (buffer-file-name)))
       (rainbow-mode)))
-  (add-hook 'emacs-lisp-mode-hook 'sanityinc/enable-rainbow-mode-if-theme)
+  (add-hook 'emacs-lisp-mode-hook 'mxzl/enable-rainbow-mode-if-theme)
   (add-hook 'help-mode-hook 'rainbow-mode)
   (after-load 'rainbow-mode
     (diminish 'rainbow-mode)))

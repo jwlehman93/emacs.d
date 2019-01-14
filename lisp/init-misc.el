@@ -12,9 +12,9 @@
 (setq goto-address-mail-face 'link)
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-(add-hook 'after-save-hook 'sanityinc/set-mode-for-new-scripts)
+(add-hook 'after-save-hook 'mxzl/set-mode-for-new-scripts)
 
-(defun sanityinc/set-mode-for-new-scripts ()
+(defun mxzl/set-mode-for-new-scripts ()
   "Invoke `normal-mode' if this file is a script and in `fundamental-mode'."
   (and
    (eq major-mode 'fundamental-mode)

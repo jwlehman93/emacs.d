@@ -72,13 +72,13 @@
 ;;; Newline behaviour
 
 (global-set-key (kbd "RET") 'newline-and-indent)
-(defun sanityinc/newline-at-end-of-line ()
+(defun mxzl/newline-at-end-of-line ()
   "Move to end of line, enter a newline, and reindent."
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
 
-(global-set-key (kbd "S-<return>") 'sanityinc/newline-at-end-of-line)
+(global-set-key (kbd "S-<return>") 'mxzl/newline-at-end-of-line)
 
 
 
@@ -223,16 +223,16 @@
 ;;----------------------------------------------------------------------------
 ;; Fix backward-up-list to understand quotes, see http://bit.ly/h7mdIL
 ;;----------------------------------------------------------------------------
-(defun sanityinc/backward-up-sexp (arg)
+(defun mxzl/backward-up-sexp (arg)
   "Jump up to the start of the ARG'th enclosing sexp."
   (interactive "p")
   (let ((ppss (syntax-ppss)))
     (cond ((elt ppss 3)
            (goto-char (elt ppss 8))
-           (sanityinc/backward-up-sexp (1- arg)))
+           (mxzl/backward-up-sexp (1- arg)))
           ((backward-up-list arg)))))
 
-(global-set-key [remap backward-up-list] 'sanityinc/backward-up-sexp) ; C-M-u, C-M-up
+(global-set-key [remap backward-up-list] 'mxzl/backward-up-sexp) ; C-M-u, C-M-up
 
 
 ;;----------------------------------------------------------------------------
@@ -246,31 +246,31 @@
 
 ;; Some local minor modes clash with CUA rectangle selection
 
-(defvar-local sanityinc/suspended-modes-during-cua-rect nil
+(defvar-local mxzl/suspended-modes-during-cua-rect nil
   "Modes that should be re-activated when cua-rect selection is done.")
 
 (eval-after-load 'cua-rect
   (advice-add 'cua--deactivate-rectangle :after
               (lambda (&rest _)
-                (dolist (m sanityinc/suspended-modes-during-cua-rect)
+                (dolist (m mxzl/suspended-modes-during-cua-rect)
                   (funcall m 1)
-                  (setq sanityinc/suspended-modes-during-cua-rect nil)))))
+                  (setq mxzl/suspended-modes-during-cua-rect nil)))))
 
-(defun sanityinc/suspend-mode-during-cua-rect-selection (mode-name)
+(defun mxzl/suspend-mode-during-cua-rect-selection (mode-name)
   "Add an advice to suspend `MODE-NAME' while selecting a CUA rectangle."
   (eval-after-load 'cua-rect
     (advice-add 'cua--activate-rectangle :after
                 (lambda (&rest _)
                   (when (bound-and-true-p mode-name)
-                    (push mode-name sanityinc/suspended-modes-during-cua-rect)
+                    (push mode-name mxzl/suspended-modes-during-cua-rect)
                     (funcall mode-name 0))))))
 
-(sanityinc/suspend-mode-during-cua-rect-selection 'whole-line-or-region-local-mode)
+(mxzl/suspend-mode-during-cua-rect-selection 'whole-line-or-region-local-mode)
 
 
 
 
-(defun sanityinc/open-line-with-reindent (n)
+(defun mxzl/open-line-with-reindent (n)
   "A version of `open-line' which reindents the start and end positions.
 If there is a fill prefix and/or a `left-margin', insert them
 on the new line if the line would have been blank.
@@ -297,13 +297,13 @@ With arg N, insert N newlines."
     (end-of-line)
     (indent-according-to-mode)))
 
-(global-set-key (kbd "C-o") 'sanityinc/open-line-with-reindent)
+(global-set-key (kbd "C-o") 'mxzl/open-line-with-reindent)
 
 
 ;;----------------------------------------------------------------------------
 ;; Random line sorting
 ;;----------------------------------------------------------------------------
-(defun sanityinc/sort-lines-random (beg end)
+(defun mxzl/sort-lines-random (beg end)
   "Sort lines in region from BEG to END randomly."
   (interactive "r")
   (save-excursion

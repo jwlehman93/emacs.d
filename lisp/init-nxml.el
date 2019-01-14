@@ -15,7 +15,7 @@
 
 
 ;; See: http://sinewalker.wordpress.com/2008/06/26/pretty-printing-xml-with-emacs-nxml-mode/
-(defun sanityinc/pp-xml-region (beg end)
+(defun mxzl/pp-xml-region (beg end)
   "Pretty format XML markup in region. The function inserts
 linebreaks to separate tags that have nothing but whitespace
 between them.  It then indents the markup by using nxml's
@@ -38,7 +38,7 @@ indentation rules."
 ;; Integration with tidy for html + xml
 ;;----------------------------------------------------------------------------
 
-(defun sanityinc/tidy-buffer-xml (beg end)
+(defun mxzl/tidy-buffer-xml (beg end)
   "Run \"tidy -xml\" on the region from BEG to END, or whole buffer."
   (interactive "r")
   (unless (use-region-p)

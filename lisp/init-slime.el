@@ -15,7 +15,7 @@
 
 ;;; Lisp buffers
 
-(defun sanityinc/slime-setup ()
+(defun mxzl/slime-setup ()
   "Mode setup function for slime lisp buffers."
   (set-up-slime-hippie-expand))
 
@@ -27,14 +27,14 @@
     (slime-setup (append '(slime-repl slime-fuzzy) extras)))
   (setq slime-complete-symbol*-fancy t)
   (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-  (add-hook 'slime-mode-hook 'sanityinc/slime-setup))
+  (add-hook 'slime-mode-hook 'mxzl/slime-setup))
 
 
 ;;; REPL
 
-(defun sanityinc/slime-repl-setup ()
+(defun mxzl/slime-repl-setup ()
   "Mode setup function for slime REPL."
-  (sanityinc/lisp-setup)
+  (mxzl/lisp-setup)
   (set-up-slime-hippie-expand)
   (setq show-trailing-whitespace nil))
 
@@ -46,7 +46,7 @@
   ;; Bind TAB to `indent-for-tab-command', as in regular Slime buffers.
   (define-key slime-repl-mode-map (kbd "TAB") 'indent-for-tab-command)
 
-  (add-hook 'slime-repl-mode-hook 'sanityinc/slime-repl-setup))
+  (add-hook 'slime-repl-mode-hook 'mxzl/slime-repl-setup))
 
 
 (provide 'init-slime)

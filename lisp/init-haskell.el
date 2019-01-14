@@ -16,7 +16,7 @@
     (add-hook 'haskell-cabal-mode 'subword-mode)
     (define-key haskell-cabal-mode-map (kbd "C-c C-l") 'intero-restart))
   (after-load 'intero
-    ;; Don't clobber sanityinc/counsel-search-project binding
+    ;; Don't clobber mxzl/counsel-search-project binding
     (define-key intero-mode-map (kbd "M-?") nil)
     (after-load 'flycheck
       (flycheck-add-next-checker 'intero
@@ -39,11 +39,11 @@
   (add-hook 'haskell-mode-hook 'hindent-mode)
   (after-load 'hindent
     (when (require 'nadvice)
-      (defun sanityinc/hindent--before-save-wrapper (oldfun &rest args)
+      (defun mxzl/hindent--before-save-wrapper (oldfun &rest args)
         (with-demoted-errors "Error invoking hindent: %s"
           (let ((debug-on-error nil))
             (apply oldfun args))))
-      (advice-add 'hindent--before-save :around 'sanityinc/hindent--before-save-wrapper))))
+      (advice-add 'hindent--before-save :around 'mxzl/hindent--before-save-wrapper))))
 
 (after-load 'haskell-mode
   (define-key haskell-mode-map (kbd "C-c h") 'hoogle)
@@ -80,7 +80,7 @@
 
 
 (when (maybe-require-package 'dhall-mode)
-  (add-hook 'dhall-mode-hook 'sanityinc/no-trailing-whitespace)
+  (add-hook 'dhall-mode-hook 'mxzl/no-trailing-whitespace)
   (add-hook 'dhall-mode-hook 'stack-exec-path-mode))
 
 

@@ -9,7 +9,7 @@
   (require-package 'elein)
 
   (after-load 'clojure-mode
-    (add-hook 'clojure-mode-hook 'sanityinc/lisp-setup)
+    (add-hook 'clojure-mode-hook 'mxzl/lisp-setup)
     (add-hook 'clojure-mode-hook 'subword-mode)))
 
 

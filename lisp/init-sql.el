@@ -6,16 +6,16 @@
   ;; sql-mode pretty much requires your psql to be uncustomised from stock settings
   (push "--no-psqlrc" sql-postgres-options))
 
-(defun sanityinc/fix-postgres-prompt-regexp ()
+(defun mxzl/fix-postgres-prompt-regexp ()
   "Work around https://debbugs.gnu.org/cgi/bugreport.cgi?bug=22596.
 Fix for the above hasn't been released as of Emacs 25.2."
   (when (eq sql-product 'postgres)
     (setq-local sql-prompt-regexp "^[[:alnum:]_]*=[#>] ")
     (setq-local sql-prompt-cont-regexp "^[[:alnum:]_]*[-(][#>] ")))
 
-(add-hook 'sql-interactive-mode-hook 'sanityinc/fix-postgres-prompt-regexp)
+(add-hook 'sql-interactive-mode-hook 'mxzl/fix-postgres-prompt-regexp)
 
-(defun sanityinc/pop-to-sqli-buffer ()
+(defun mxzl/pop-to-sqli-buffer ()
   "Switch to the corresponding sqli buffer."
   (interactive)
   (if (and sql-buffer (buffer-live-p sql-buffer))
@@ -24,27 +24,27 @@ Fix for the above hasn't been released as of Emacs 25.2."
         (goto-char (point-max)))
     (sql-set-sqli-buffer)
     (when sql-buffer
-      (sanityinc/pop-to-sqli-buffer))))
+      (mxzl/pop-to-sqli-buffer))))
 
 (after-load 'sql
-  (define-key sql-mode-map (kbd "C-c C-z") 'sanityinc/pop-to-sqli-buffer)
+  (define-key sql-mode-map (kbd "C-c C-z") 'mxzl/pop-to-sqli-buffer)
   (when (package-installed-p 'dash-at-point)
-    (defun sanityinc/maybe-set-dash-db-docset (&rest _)
+    (defun mxzl/maybe-set-dash-db-docset (&rest _)
       (when (eq sql-product 'postgres)
         (set (make-local-variable 'dash-at-point-docset) "psql")))
 
-    (add-hook 'sql-mode-hook 'sanityinc/maybe-set-dash-db-docset)
-    (add-hook 'sql-interactive-mode-hook 'sanityinc/maybe-set-dash-db-docset)
-    (advice-add 'sql-set-product :after 'sanityinc/maybe-set-dash-db-docset)))
+    (add-hook 'sql-mode-hook 'mxzl/maybe-set-dash-db-docset)
+    (add-hook 'sql-interactive-mode-hook 'mxzl/maybe-set-dash-db-docset)
+    (advice-add 'sql-set-product :after 'mxzl/maybe-set-dash-db-docset)))
 
 (setq-default sql-input-ring-file-name
               (expand-file-name ".sqli_history" user-emacs-directory))
 
 ;; See my answer to https://emacs.stackexchange.com/questions/657/why-do-sql-mode-and-sql-interactive-mode-not-highlight-strings-the-same-way/673
-(defun sanityinc/font-lock-everything-in-sql-interactive-mode ()
+(defun mxzl/font-lock-everything-in-sql-interactive-mode ()
   (unless (eq 'oracle sql-product)
     (sql-product-font-lock nil nil)))
-(add-hook 'sql-interactive-mode-hook 'sanityinc/font-lock-everything-in-sql-interactive-mode)
+(add-hook 'sql-interactive-mode-hook 'mxzl/font-lock-everything-in-sql-interactive-mode)
 
 
 (require-package 'sqlformat)
@@ -56,7 +56,7 @@ Fix for the above hasn't been released as of Emacs 25.2."
 
 ;; Package ideas:
 ;;   - PEV
-(defun sanityinc/sql-explain-region-as-json (beg end &optional copy)
+(defun mxzl/sql-explain-region-as-json (beg end &optional copy)
   "Explain the SQL between BEG and END in detailed JSON format.
 This is suitable for pasting into tools such as
 http://tatiyants.com/pev/.

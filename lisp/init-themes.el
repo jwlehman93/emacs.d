@@ -2,11 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'color-theme-sanityinc-solarized)
-(require-package 'color-theme-sanityinc-tomorrow)
+(require-package 'color-theme-mxzl-solarized)
+(require-package 'color-theme-mxzl-tomorrow)
 
 ;; If you don't customize it, this is the theme you get.
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+(setq-default custom-enabled-themes '(mxzl-tomorrow-bright))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -25,13 +25,13 @@
 (defun light ()
   "Activate a light color theme."
   (interactive)
-  (setq custom-enabled-themes '(sanityinc-tomorrow-day))
+  (setq custom-enabled-themes '(mxzl-tomorrow-day))
   (reapply-themes))
 
 (defun dark ()
   "Activate a dark color theme."
   (interactive)
-  (setq custom-enabled-themes '(sanityinc-tomorrow-bright))
+  (setq custom-enabled-themes '(mxzl-tomorrow-bright))
   (reapply-themes))
 
 

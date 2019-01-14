@@ -18,12 +18,12 @@ Selectively runs either `after-make-console-frame-hooks' or
 
 (add-hook 'after-make-frame-functions 'run-after-make-frame-hooks)
 
-(defconst sanityinc/initial-frame (selected-frame)
+(defconst mxzl/initial-frame (selected-frame)
   "The frame (if any) active during Emacs initialization.")
 
 (add-hook 'after-init-hook
-          (lambda () (when sanityinc/initial-frame
-                  (run-after-make-frame-hooks sanityinc/initial-frame))))
+          (lambda () (when mxzl/initial-frame
+                       (run-after-make-frame-hooks mxzl/initial-frame))))
 
 
 (provide 'init-frame-hooks)

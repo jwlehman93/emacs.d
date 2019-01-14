@@ -8,7 +8,7 @@
 
 ;; Customize `alert-default-style' to get messages after compilation
 
-(defun sanityinc/alert-after-compilation-finish (buf result)
+(defun mxzl/alert-after-compilation-finish (buf result)
   "Use `alert' to report compilation RESULT if BUF is hidden."
   (when (buffer-live-p buf)
     (unless (catch 'is-visible
@@ -22,45 +22,45 @@
 
 (after-load 'compile
   (add-hook 'compilation-finish-functions
-            'sanityinc/alert-after-compilation-finish))
+            'mxzl/alert-after-compilation-finish))
 
-(defvar sanityinc/last-compilation-buffer nil
+(defvar mxzl/last-compilation-buffer nil
   "The last buffer in which compilation took place.")
 
 (after-load 'compile
-  (defun sanityinc/save-compilation-buffer (&rest _)
+  (defun mxzl/save-compilation-buffer (&rest _)
     "Save the compilation buffer to find it later."
-    (setq sanityinc/last-compilation-buffer next-error-last-buffer))
-  (advice-add 'compilation-start :after 'sanityinc/save-compilation-buffer)
+    (setq mxzl/last-compilation-buffer next-error-last-buffer))
+  (advice-add 'compilation-start :after 'mxzl/save-compilation-buffer)
 
-  (defun sanityinc/find-prev-compilation (orig &optional edit-command)
+  (defun mxzl/find-prev-compilation (orig &optional edit-command)
     "Find the previous compilation buffer, if present, and recompile there."
     (if (and (null edit-command)
              (not (derived-mode-p 'compilation-mode))
-             sanityinc/last-compilation-buffer
-             (buffer-live-p (get-buffer sanityinc/last-compilation-buffer)))
-        (with-current-buffer sanityinc/last-compilation-buffer
+             mxzl/last-compilation-buffer
+             (buffer-live-p (get-buffer mxzl/last-compilation-buffer)))
+        (with-current-buffer mxzl/last-compilation-buffer
           (funcall orig edit-command))
       (funcall orig edit-command)))
-  (advice-add 'recompile :around 'sanityinc/find-prev-compilation))
+  (advice-add 'recompile :around 'mxzl/find-prev-compilation))
 
 (global-set-key [f6] 'recompile)
 
 
-(defun sanityinc/shell-command-in-view-mode (start end command &optional output-buffer replace &rest other-args)
+(defun mxzl/shell-command-in-view-mode (start end command &optional output-buffer replace &rest other-args)
   "Put \"*Shell Command Output*\" buffers into view-mode."
   (unless (or output-buffer replace)
     (with-current-buffer "*Shell Command Output*"
       (view-mode 1))))
-(advice-add 'shell-command-on-region :after 'sanityinc/shell-command-in-view-mode)
+(advice-add 'shell-command-on-region :after 'mxzl/shell-command-in-view-mode)
 
 
 (after-load 'compile
   (require 'ansi-color)
-  (defun sanityinc/colourise-compilation-buffer ()
+  (defun mxzl/colourise-compilation-buffer ()
     (when (eq major-mode 'compilation-mode)
       (ansi-color-apply-on-region compilation-filter-start (point-max))))
-  (add-hook 'compilation-filter-hook 'sanityinc/colourise-compilation-buffer))
+  (add-hook 'compilation-filter-hook 'mxzl/colourise-compilation-buffer))
 
 
 (maybe-require-package 'cmd-to-echo)

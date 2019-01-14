@@ -25,7 +25,7 @@
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
 
 ;; TODO: fail gracefully
-(defun sanityinc/grab-ditaa (url jar-name)
+(defun mxzl/grab-ditaa (url jar-name)
   "Download URL and extract JAR-NAME as `org-ditaa-jar-path'."
   ;; TODO: handle errors
   (message "Grabbing %s for org." jar-name)
@@ -47,7 +47,7 @@
           (url "http://jaist.dl.sourceforge.net/project/ditaa/ditaa/0.9/ditaa0_9.zip"))
       (setq org-ditaa-jar-path (expand-file-name jar-name (file-name-directory user-init-file)))
       (unless (file-exists-p org-ditaa-jar-path)
-        (sanityinc/grab-ditaa url jar-name)))))
+        (mxzl/grab-ditaa url jar-name)))))
 
 (after-load 'ob-plantuml
   (let ((jar-name "plantuml.jar")
@@ -135,18 +135,18 @@ typical word processor."
 (advice-add 'org-refile :after (lambda (&rest _) (org-save-all-org-buffers)))
 
 ;; Exclude DONE state tasks from refile targets
-(defun sanityinc/verify-refile-target ()
+(defun mxzl/verify-refile-target ()
   "Exclude todo keywords with a done state from refile targets."
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-(setq org-refile-target-verify-function 'sanityinc/verify-refile-target)
+(setq org-refile-target-verify-function 'mxzl/verify-refile-target)
 
-(defun sanityinc/org-refile-anywhere (&optional goto default-buffer rfloc msg)
+(defun mxzl/org-refile-anywhere (&optional goto default-buffer rfloc msg)
   "A version of `org-refile' which allows refiling to any subtree."
   (interactive "P")
   (let ((org-refile-target-verify-function))
     (org-refile goto default-buffer rfloc msg)))
 
-(defun sanityinc/org-agenda-refile-anywhere (&optional goto rfloc no-update)
+(defun mxzl/org-agenda-refile-anywhere (&optional goto rfloc no-update)
   "A version of `org-agenda-refile' which allows refiling to any subtree."
   (interactive "P")
   (let ((org-refile-target-verify-function))
@@ -289,15 +289,15 @@ typical word processor."
 
 
 ;;; Show the clocked-in task - if any - in the header line
-(defun sanityinc/show-org-clock-in-header-line ()
+(defun mxzl/show-org-clock-in-header-line ()
   (setq-default header-line-format '((" " org-mode-line-string " "))))
 
-(defun sanityinc/hide-org-clock-from-header-line ()
+(defun mxzl/hide-org-clock-from-header-line ()
   (setq-default header-line-format nil))
 
-(add-hook 'org-clock-in-hook 'sanityinc/show-org-clock-in-header-line)
-(add-hook 'org-clock-out-hook 'sanityinc/hide-org-clock-from-header-line)
-(add-hook 'org-clock-cancel-hook 'sanityinc/hide-org-clock-from-header-line)
+(add-hook 'org-clock-in-hook 'mxzl/show-org-clock-in-header-line)
+(add-hook 'org-clock-out-hook 'mxzl/hide-org-clock-from-header-line)
+(add-hook 'org-clock-cancel-hook 'mxzl/hide-org-clock-from-header-line)
 
 (after-load 'org-clock
   (define-key org-clock-mode-line-map [header-line mouse-2] 'org-clock-goto)

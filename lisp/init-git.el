@@ -24,7 +24,7 @@
   (global-set-key (kbd "C-x g") 'magit-status)
   (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
-  (defun sanityinc/magit-or-vc-log-file (&optional prompt)
+  (defun mxzl/magit-or-vc-log-file (&optional prompt)
     (interactive "P")
     (if (and (buffer-file-name)
              (eq 'Git (vc-backend (buffer-file-name))))
@@ -34,12 +34,12 @@
       (vc-print-log)))
 
   (after-load 'vc
-    (define-key vc-prefix-map (kbd "l") 'sanityinc/magit-or-vc-log-file)))
+    (define-key vc-prefix-map (kbd "l") 'mxzl/magit-or-vc-log-file)))
 
 
 (after-load 'magit
   (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-section-up)
-  (add-hook 'magit-popup-mode-hook 'sanityinc/no-trailing-whitespace))
+  (add-hook 'magit-popup-mode-hook 'mxzl/no-trailing-whitespace))
 
 (maybe-require-package 'magit-todos)
 
@@ -68,10 +68,10 @@
 ;; (when (maybe-require-package 'magit-svn)
 ;;   (require-package 'magit-svn)
 ;;   (autoload 'magit-svn-enabled "magit-svn")
-;;   (defun sanityinc/maybe-enable-magit-svn-mode ()
+;;   (defun mxzl/maybe-enable-magit-svn-mode ()
 ;;     (when (magit-svn-enabled)
 ;;       (magit-svn-mode)))
-;;   (add-hook 'magit-status-mode-hook #'sanityinc/maybe-enable-magit-svn-mode))
+;;   (add-hook 'magit-status-mode-hook #'mxzl/maybe-enable-magit-svn-mode))
 
 (after-load 'compile
   (dolist (defn (list '(git-svn-updated "^\t[A-Z]\t\\(.*\\)$" 1 nil nil 0 1)
@@ -83,7 +83,7 @@
 (defun git-svn--available-commands ()
   (or git-svn--available-commands
       (setq git-svn--available-commands
-            (sanityinc/string-all-matches
+            (mxzl/string-all-matches
              "^  \\([a-z\\-]+\\) +"
              (shell-command-to-string "git svn help") 1))))
 

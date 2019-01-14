@@ -21,7 +21,7 @@
 
 ;; Compatibility with other modes
 
-(sanityinc/suspend-mode-during-cua-rect-selection 'paredit-mode)
+(mxzl/suspend-mode-during-cua-rect-selection 'paredit-mode)
 
 
 ;; Use paredit in the minibuffer

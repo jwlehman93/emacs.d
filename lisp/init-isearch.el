@@ -36,14 +36,14 @@
 (define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
 
 
-(defun sanityinc/isearch-exit-other-end ()
+(defun mxzl/isearch-exit-other-end ()
   "Exit isearch, but at the other end of the search string.
 This is useful when followed by an immediate kill."
   (interactive)
   (isearch-exit)
   (goto-char isearch-other-end))
 
-(define-key isearch-mode-map [(control return)] 'sanityinc/isearch-exit-other-end)
+(define-key isearch-mode-map [(control return)] 'mxzl/isearch-exit-other-end)
 
 
 (provide 'init-isearch)

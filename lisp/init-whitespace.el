@@ -7,7 +7,7 @@
 
 ;;; Whitespace
 
-(defun sanityinc/no-trailing-whitespace ()
+(defun mxzl/no-trailing-whitespace ()
   "Turn off display of trailing whitespace in this buffer."
   (setq show-trailing-whitespace nil))
 
@@ -20,7 +20,7 @@
                 compilation-mode-hook
                 twittering-mode-hook
                 minibuffer-setup-hook))
-  (add-hook hook #'sanityinc/no-trailing-whitespace))
+  (add-hook hook #'mxzl/no-trailing-whitespace))
 
 
 (require-package 'whitespace-cleanup-mode)

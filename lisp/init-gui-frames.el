@@ -5,12 +5,12 @@
 ;;----------------------------------------------------------------------------
 ;; Stop C-z from minimizing windows under OS X
 ;;----------------------------------------------------------------------------
-(defun sanityinc/maybe-suspend-frame ()
+(defun mxzl/maybe-suspend-frame ()
   (interactive)
   (unless (and *is-a-mac* window-system)
     (suspend-frame)))
 
-(global-set-key (kbd "C-z") 'sanityinc/maybe-suspend-frame)
+(global-set-key (kbd "C-z") 'mxzl/maybe-suspend-frame)
 
 
 ;;----------------------------------------------------------------------------
@@ -45,7 +45,7 @@
   (add-to-list 'default-frame-alist no-border)
   (add-to-list 'initial-frame-alist no-border))
 
-(defun sanityinc/adjust-opacity (frame incr)
+(defun mxzl/adjust-opacity (frame incr)
   "Adjust the background opacity of FRAME by increment INCR."
   (unless (display-graphic-p frame)
     (error "Cannot adjust opacity of this frame"))
@@ -63,8 +63,8 @@
   (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
 
 ;; TODO: use seethru package instead?
-(global-set-key (kbd "M-C-8") (lambda () (interactive) (sanityinc/adjust-opacity nil -2)))
-(global-set-key (kbd "M-C-9") (lambda () (interactive) (sanityinc/adjust-opacity nil 2)))
+(global-set-key (kbd "M-C-8") (lambda () (interactive) (mxzl/adjust-opacity nil -2)))
+(global-set-key (kbd "M-C-9") (lambda () (interactive) (mxzl/adjust-opacity nil 2)))
 (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
 
 
