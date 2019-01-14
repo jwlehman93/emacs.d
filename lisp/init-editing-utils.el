@@ -330,9 +330,9 @@ With arg N, insert N newlines."
 
 
 
-(when (maybe-require-package linum-relative)
-  mapc (lambda (hook)
-         (add-hook hook 'linum-relative-mode)) '(text-mode prog-mode))
+(when (maybe-require-package 'linum-relative)
+  (mapc (lambda (hook)
+          (add-hook hook 'linum-relative-mode)) '(text-mode prog-mode)))
 
 
 

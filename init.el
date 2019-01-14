@@ -133,6 +133,9 @@
 ;; (require 'init-mu)
 (require 'init-ledger)
 (require 'init-evil)
+(require 'init-lsp)
+(require 'init-swift)
+(require 'init-dashboard)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)
