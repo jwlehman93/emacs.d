@@ -9,9 +9,9 @@
     (add-to-list 'exec-path-from-shell-variables var)))
 
 
-(when (memq window-system '(mac ns x))
-  (setq-default exec-path-from-shell-arguments nil)
-  (exec-path-from-shell-initialize))
+
+;;(add-to-list 'exec-path "/usr/local/bin/")
+(exec-path-from-shell-initialize)
 
 (provide 'init-exec-path)
 ;;; init-exec-path.el ends here

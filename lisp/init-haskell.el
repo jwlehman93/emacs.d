@@ -9,7 +9,7 @@
 
 (when (maybe-require-package 'intero)
   (after-load 'haskell-mode
-    (intero-global-mode)
+;;    (intero-global-mode)
     (add-hook 'haskell-mode-hook 'subword-mode)
     (add-hook 'haskell-mode-hook 'eldoc-mode))
   (after-load 'haskell-cabal
@@ -82,9 +82,6 @@
 (when (maybe-require-package 'dhall-mode)
   (add-hook 'dhall-mode-hook 'mxzl/no-trailing-whitespace)
   (add-hook 'dhall-mode-hook 'stack-exec-path-mode))
-
-
-
 
 (provide 'init-haskell)
 ;;; init-haskell.el ends here
