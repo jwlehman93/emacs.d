@@ -328,6 +328,16 @@ With arg N, insert N newlines."
 (after-load 'guide-key
   (diminish 'guide-key-mode))
 
+
+
+(when (maybe-require-package linum-relative)
+  mapc (lambda (hook)
+         (add-hook hook 'linum-relative-mode)) '(text-mode prog-mode))
+
+
+
+(global-set-key (kbd "C-c M-p") 'clipboard-yank)
+(global-set-key (kbd "C-c M-y") 'clipboard-kill-ring-save)
 
 (provide 'init-editing-utils)
 ;;; init-editing-utils.el ends here
