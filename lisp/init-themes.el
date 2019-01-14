@@ -2,11 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'color-theme-mxzl-solarized)
-(require-package 'color-theme-mxzl-tomorrow)
+(require-package 'color-theme-sanityinc-solarized)
+(require-package 'color-theme-sanityinc-tomorrow)
+(require-package 'rebecca-theme)
+(require-package 'darcula-theme)
 
 ;; If you don't customize it, this is the theme you get.
-(setq-default custom-enabled-themes '(mxzl-tomorrow-bright))
+(setq-default custom-enabled-themes '(rebecca))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -25,20 +27,24 @@
 (defun light ()
   "Activate a light color theme."
   (interactive)
-  (setq custom-enabled-themes '(mxzl-tomorrow-day))
+  (setq custom-enabled-themes '(sanityinc-tomorrow-day))
   (reapply-themes))
 
 (defun dark ()
   "Activate a dark color theme."
   (interactive)
-  (setq custom-enabled-themes '(mxzl-tomorrow-bright))
+  (setq custom-enabled-themes '(darcula))
   (reapply-themes))
 
+(defun purple ()
+  "Activate purple color theme."
+  (interactive)
+  (setq custom-enabled-themes '(rebecca))
+  (reapply-themes))
 
 (when (maybe-require-package 'dimmer)
   (setq-default dimmer-fraction 0.15)
   (add-hook 'after-init-hook 'dimmer-mode)
-  ;; TODO: file upstream as a PR
   (after-load 'dimmer
     (advice-add 'frame-set-background-mode :after (lambda (&rest args) (dimmer-process-all)))))
 
