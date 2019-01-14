@@ -3,9 +3,9 @@
 ;;; Commentary:
 
 ;;; Code:
-(require 'lsp-sourcekit)
-(setenv "SOURCEKIT_TOOLCHAIN_PATH" "/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2018-11-01-a.xctoolchain")
-(setq lsp-sourcekit-executable (expand-file-name "<path_to_sourcekit-lsp_executable>"))
+(require-package 'lsp-sourcekit)
+(setenv "SOURCEKIT_TOOLCHAIN_PATH" "/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2018-01-10-a.xctoolchain")
+(setq lsp-sourcekit-executable (expand-file-name "~/git/sourcekit-lsp/.build/debug/sourcekit-lsp"))
 
 (provide 'init-lisp)
 ;;; init-swift.el ends here

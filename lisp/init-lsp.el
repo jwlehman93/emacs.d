@@ -7,7 +7,7 @@
 
 (require-package 'lsp-mode)
 (setq lsp-inhibit-message t
-      lsp-eldoc-render-all-nil)
+      lsp-eldoc-render-all nil)
 
 
 
