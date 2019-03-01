@@ -52,6 +52,7 @@
 (require-package 'diminish)
 (require-package 'scratch)
 (require-package 'command-log-mode)
+(require-package 'use-package)
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
@@ -134,7 +135,8 @@
 (require 'init-ledger)
 (require 'init-evil)
 (require 'init-lsp)
-;;(require 'init-swift)
+(require 'init-java)
+(require 'init-swift)
 (require 'init-dashboard)
 ;; Extra packages which don't require any configuration
 
