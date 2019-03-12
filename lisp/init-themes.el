@@ -6,6 +6,8 @@
 (require-package 'color-theme-sanityinc-tomorrow)
 (require-package 'rebecca-theme)
 (require-package 'darcula-theme)
+(require-package 'doom-themes)
+(require-package 'doom-modeline)
 
 ;; If you don't customize it, this is the theme you get.
 (setq-default custom-enabled-themes '(rebecca))
@@ -40,6 +42,18 @@
   "Activate purple color theme."
   (interactive)
   (setq custom-enabled-themes '(rebecca))
+  (reapply-themes))
+
+(defun doom ()
+  "Activate doom themes + goodies"
+  (interactive)
+  (setq custom-enabled-themes '(doom-peacock))
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  (doom-themes-treemacs-config)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config)
+  (doom-modeline-mode 1)
   (reapply-themes))
 
 (when (maybe-require-package 'dimmer)

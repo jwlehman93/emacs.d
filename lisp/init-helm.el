@@ -21,5 +21,11 @@
 (require-package 'helm-ag)
 (require-package 'helm-company)
 (helm-projectile-on)
+
+(defun +helm*hide-header (&rest _)
+  "Hide header-line & mode-line in helm windows."
+  (setq mode-line-format nil))
+(advice-add #'helm-display-mode-line :override #'+helm*hide-header)
+
 (provide 'init-helm)
 ;;; init-helm.el ends here
