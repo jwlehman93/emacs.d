@@ -10,7 +10,7 @@
 (require-package 'doom-modeline)
 
 ;; If you don't customize it, this is the theme you get.
-(setq-default custom-enabled-themes '(rebecca))
+(setq-default custom-enabled-themes '(doom-peacock))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -45,7 +45,7 @@
   (reapply-themes))
 
 (defun doom ()
-  "Activate doom themes + goodies"
+  "Activate doom themes + goodies."
   (interactive)
   (setq custom-enabled-themes '(doom-peacock))
   (setq doom-themes-enable-bold t
