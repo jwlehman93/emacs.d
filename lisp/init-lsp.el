@@ -19,12 +19,16 @@
 
 
 (require-package 'lsp-ui)
-(setq  lsp-ui-sideline-enable t
-       lsp-ui-sideline-show-symbol t
-       lsp-ui-sideline-show-hover t
-       lsp-ui-sideline-show-code-actions t
-       lsp-ui-sideline-update-mode 'point)
-
+(use-package lsp-ui
+  :ensure t
+  :init
+  (setq  lsp-ui-sideline-enable t
+         lsp-ui-sideline-show-symbol t
+         lsp-ui-sideline-show-hover t
+         lsp-ui-sideline-show-code-actions t
+         lsp-ui-sideline-update-mode 'point
+         lsp-prefer-flymake nil)
+  :bind (("C-c C-l a" . lsp-ui-sideline-apply-code-actions)))
 
 (provide 'init-lsp)
 ;;; init-editing-utils.el ends here

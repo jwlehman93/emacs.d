@@ -62,6 +62,6 @@
   (after-load 'dimmer
     (advice-add 'frame-set-background-mode :after (lambda (&rest args) (dimmer-process-all)))))
 
-
+(doom)
 (provide 'init-themes)
 ;;; init-themes.el ends here

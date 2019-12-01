@@ -92,6 +92,7 @@
 (require 'init-csv)
 (require 'init-erlang)
 (require 'init-javascript)
+(require 'init-typescript)
 (require 'init-php)
 (require 'init-org)
 (require 'init-nxml)
@@ -104,6 +105,7 @@
 (require 'init-elm)
 (require 'init-purescript)
 (require 'init-ruby)
+(require 'init-elixir)
 (require 'init-rails)
 (require 'init-sql)
 (require 'init-rust)
@@ -111,6 +113,7 @@
 (require 'init-yaml)
 (require 'init-docker)
 (require 'init-terraform)
+(require 'init-flutter)
 ;;(require 'init-nix)
 (maybe-require-package 'nginx-mode)
 

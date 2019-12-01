@@ -16,7 +16,6 @@
 
 (use-package hydra :ensure t)
 (use-package dap-java :after (lsp-java))
-(use-package lsp-java-treemacs :after (treemacs))
 
 (provide 'init-java)
 ;;; init-java.el ends here
