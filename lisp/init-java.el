@@ -5,7 +5,9 @@
 ;;; Code:
 
 (use-package lsp-java :ensure t :after lsp
-             :config (add-hook 'java-mode-hook 'lsp))
+  :config
+  (add-hook 'java-mode-hook 'lsp)
+  (setq lsp-java-jdt-download-url "http://download.eclipse.org/che/che-ls-jdt/snapshots/che-jdt-language-server-latest.tar.gz"))
 
 (use-package treemacs :ensure t)
 (use-package dap-mode

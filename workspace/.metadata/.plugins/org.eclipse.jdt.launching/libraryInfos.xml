@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <libraryInfos>
-    <libraryInfo home="/Library/Java/JavaVirtualMachines/jdk-9.0.1.jdk/Contents/Home" version="9.0.1"/>
+    <libraryInfo home="/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home" version="11.0.2"/>
     <libraryInfo home="/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home" version="1.8.0_101">
         <bootpath>
             <entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/resources.jar"/>

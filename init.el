@@ -140,6 +140,7 @@
 (require 'init-java)
 (require 'init-swift)
 (require 'init-dashboard)
+(require 'init-slack)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)
