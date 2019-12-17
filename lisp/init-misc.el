@@ -48,6 +48,6 @@
 
 (add-auto-mode 'conf-mode "^Procfile\\'")
 
-
+(add-hook 'debug-mode-hook visual-line-mode)
 (provide 'init-misc)
 ;;; init-misc.el ends here
