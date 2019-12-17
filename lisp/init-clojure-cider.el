@@ -6,7 +6,7 @@
 
 (when (maybe-require-package 'cider)
   (setq nrepl-popup-stacktraces nil)
-
+  (setq cider-repl-wrap-history t)
   (after-load 'cider
     (add-hook 'cider-repl-mode-hook 'subword-mode)
     (add-hook 'cider-repl-mode-hook 'paredit-mode)
