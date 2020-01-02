@@ -3,12 +3,17 @@
 ;;; Commentary:
 
 ;;; Code:
-(use-package swift-mode :ensure t)
-
-(use-package lsp-sourcekit :ensure t :after lsp
+(use-package swift-mode
+  :ensure t
   :config
-  (setenv "SOURCEKIT_TOOLCHAIN_PATH" "/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2019-01-10-a.xctoolchain")
-  (setq lsp-sourcekit-executable (expand-file-name "~/git/sourcekit-lsp/.build/debug/sourcekit-lsp"))
+  (use-package flycheck-swiftlint :ensure t)
+  (add-hook 'swift-mode-hook 'lsp)
+  )
+
+(use-package lsp-sourcekit :ensure t :after lsp-mode
+  :config
+  (setenv "SOURCEKIT_TOOLCHAIN_PATH" "/Library/Developer/Toolchains/swift-latest.xctoolchain")
+  (setq lsp-sourcekit-executable (expand-file-name "~/git/lib/sourcekit-lsp/.build/debug/sourcekit-lsp"))
   (add-hook 'swift-mode-hook 'lsp))
 
 (provide 'init-swift)
