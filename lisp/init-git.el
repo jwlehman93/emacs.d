@@ -37,6 +37,9 @@
   (after-load 'vc
     (define-key vc-prefix-map (kbd "l") 'mxzl/magit-or-vc-log-file)))
 
+(with-eval-after-load 'magit
+  (require-package 'forge))
+
 
 (after-load 'magit
   (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-section-up)
