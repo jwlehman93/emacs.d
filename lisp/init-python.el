@@ -8,11 +8,21 @@
               auto-mode-alist))
 (require-package 'pip-requirements)
 
-(use-package elpy
-  :ensure t
+(use-package python-mode
   :init
-  (elpy-enable)
-  (define-key elpy-mode-map (kbd "M-.") 'elpy-goto-definition-or-rgrep))
+  (use-package company-jedi
+    :ensure t
+    :init
+    (setq jedi:complete-on-dot))
+  (use-package elpy
+    :ensure t
+    :after (python-mode)
+    :init
+    (elpy-enable)
+    (define-key elpy-mode-map (kbd "M-.") 'elpy-goto-definition-or-rgrep))
+  :hook
+  (jedi:setup))
+
 
 (defun elpy-goto-definition-or-rgrep ()
   "Go to the definition of the symbol at point, if found.  Otherwise, run `elpy-rgrep-symbol'."
