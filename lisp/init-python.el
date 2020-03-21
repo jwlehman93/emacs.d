@@ -6,7 +6,9 @@
       (append '(("SConstruct\\'" . python-mode)
                 ("SConscript\\'" . python-mode))
               auto-mode-alist))
-(require-package 'pip-requirements)
+
+(use-package pip-requirements :ensure t)
+(use-package poetry :ensure t)
 
 (use-package python-mode
   :init
